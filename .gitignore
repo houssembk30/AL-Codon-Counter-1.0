@@ -1,0 +1,30 @@
+# Exclude build and distribution directories
+build/
+dist/
+
+# Exclude Python cache and virtual environment files
+*.pyc
+__pycache__/
+venv/
+
+# Exclude IDE-specific files and directories
+.idea/
+.vscode/
+
+# Exclude generated documentation files
+Generated ALL in ONe DOCX/
+Generated DOCX Files/
+Genereted TXT Files/
+
+# Exclude source directories if they are not needed
+Source Fasta/
+Source DOCX/
+Source TXT/
+
+# Exclude the output directory
+Output/
+
+
+# Exclude other temporary or unnecessary files
+*.log
+*.tmp
