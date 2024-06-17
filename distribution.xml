@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="2">
+    <title>AL Codon Counter Installer</title>
+    <background file="background.png" alignment="bottomleft" scaling="proportional"/>
+    <license file="license.txt"/>
+    <options customize="never" allow-external-scripts="no"/>
+    <choices-outline>
+        <line choice="default">
+            <line choice="pkg"/>
+        </line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="pkg" title="AL Codon Counter" description="Install AL Codon Counter">
+        <pkg-ref id="com.yourdomain.AL Codon Counter"/>
+    </choice>
+    <pkg-ref id="com.yourdomain.AL Codon Counter" version="1.0" onConclusion="none">#pkg</pkg-ref>
+</installer-gui-script>
