@@ -11,7 +11,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [3.6, 3.7, 3.8, 3.9, 3.10, 3.11]
-        arch: [x64, x32, arm64, armhf]
+        architecture: [x64, x32, arm64, armhf]
+        exclude:
+          - os: macos-latest
+            architecture: x32
+          - os: macos-latest
+            architecture: armhf
 
     runs-on: ${{ matrix.os }}
 
@@ -20,19 +25,19 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Python for x64 and arm64
-      if: matrix.arch != 'x32' && matrix.arch != 'armhf'
+      if: matrix.architecture != 'x32' && matrix.architecture != 'armhf'
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
     - name: Set up Python for x32 on Windows
-      if: matrix.os == 'windows-latest' && matrix.arch == 'x32'
+      if: matrix.os == 'windows-latest' && matrix.architecture == 'x32'
       run: |
         choco install python --version=${{ matrix.python-version }} --x86
         python -m pip install --upgrade pip
 
     - name: Install dependencies for x32 on Ubuntu
-      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x32'
+      if: matrix.os == 'ubuntu-latest' && matrix.architecture == 'x32'
       run: |
         sudo dpkg --add-architecture i386
         sudo apt-get update
@@ -41,15 +46,15 @@ jobs:
         python3 -m pip install --upgrade pip
 
     - name: Install dependencies for arm64 on Ubuntu
-      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'arm64'
+      if: matrix.os == 'ubuntu-latest' && matrix.architecture == 'arm64'
       run: |
         sudo apt-get update
-        sudo apt-get install -y python${{ matrix.python-version }}
+        sudo apt-get install -y python${{ matrix.python-version }}:arm64
         sudo ln -s /usr/bin/python${{ matrix.python-version }} /usr/bin/python3
         python3 -m pip install --upgrade pip
 
     - name: Install dependencies for armhf on Ubuntu
-      if: matrix.os == 'ubuntu-latest' && matrix.arch == 'armhf'
+      if: matrix.os == 'ubuntu-latest' && matrix.architecture == 'armhf'
       run: |
         sudo dpkg --add-architecture armhf
         sudo apt-get update
@@ -58,13 +63,14 @@ jobs:
         python3 -m pip install --upgrade pip
 
     - name: Install dependencies for arm64 on macOS
-      if: matrix.os == 'macos-latest' && matrix.arch == 'arm64'
+      if: matrix.os == 'macos-latest' && matrix.architecture == 'arm64'
       run: |
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
 
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     # Build executable for Windows
@@ -93,7 +99,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: built-application-${{ matrix.os }}-${{ matrix.arch }}-python-${{ matrix.python-version }}
+        name: built-application-${{ matrix.os }}-${{ matrix.architecture }}-python-${{ matrix.python-version }}
         path: |
           dist/*
           build/*.run
