@@ -1,0 +1,69 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9, 3.10, 3.11]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Set executable permissions for build scripts
+      run: |
+        chmod +x build_mac.sh
+        chmod +x build_linux.sh
+
+    # Build executable for Windows
+    - name: Install Inno Setup
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install innosetup
+
+    - name: Build executable for Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        pip install pyinstaller
+        if [ -f AL_CODON_APP.spec ]; then pyinstaller AL_CODON_APP.spec; else pyinstaller --onefile --windowed --name AL_CODON_APP interface_AL_Counter.py; fi
+        # Run Inno Setup to create the installer
+        innosetup-compiler AL_CODON_APP.iss
+
+    # Build executable for macOS
+    - name: Build executable for macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        ./build_mac.sh
+
+    # Build executable for Linux
+    - name: Build executable for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        ./build_linux.sh
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: built-application-${{ matrix.os }}-python-${{ matrix.python-version }}
+        path: |
+          dist/*
+          build/*.run
+          build/*.pkg
