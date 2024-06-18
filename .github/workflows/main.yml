@@ -38,16 +38,18 @@ jobs:
           - os: macos-latest
             python-version: 3.8
             architecture: x64
+          - os: macos-latest
+            python-version: 3.8
 
     runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python for x64 and arm64
       if: matrix.architecture != 'x32' && matrix.architecture != 'armhf'
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -125,7 +127,7 @@ jobs:
         ./build_linux.sh
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: built-application-${{ matrix.os }}-${{ matrix.architecture }}-python-${{ matrix.python-version }}
         path: |
