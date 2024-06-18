@@ -17,41 +17,22 @@ jobs:
             architecture: x32
           - os: macos-latest
             architecture: armhf
-          - os: macos-latest
-            python-version: 3.1
-            architecture: arm64
-          - os: macos-latest
-            python-version: 3.1
-            architecture: x64
-          - os: macos-latest
-            python-version: 3.6
-            architecture: arm64
-          - os: macos-latest
-            python-version: 3.6
-            architecture: x64
-          - os: macos-latest
-            python-version: 3.7
-            architecture: arm64
-          - os: macos-latest
-            python-version: 3.7
-            architecture: x64
-          - os: macos-latest
-            python-version: 3.8
-            architecture: x64
-          - os: macos-latest
-            python-version: 3.8
+          - python-version: 3.1
 
     runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        node-version: '20'
 
     - name: Set up Python for x64 and arm64
       if: matrix.architecture != 'x32' && matrix.architecture != 'armhf'
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+        node-version: '20'
 
     - name: Set up Python for x32 on Windows
       if: matrix.os == 'windows-latest' && matrix.architecture == 'x32'
