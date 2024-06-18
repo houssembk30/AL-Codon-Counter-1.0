@@ -89,13 +89,12 @@ jobs:
         brew update
         brew install openblas
         brew install gcc
-        brew install qt
         brew install python@${{ matrix.python-version }}
+        export MACOSX_DEPLOYMENT_TARGET="10.15"
         python${{ matrix.python-version }} -m pip install --upgrade pip
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
-        export PATH="/usr/local/opt/qt/bin:$PATH"
 
     - name: Install dependencies
       run: |
