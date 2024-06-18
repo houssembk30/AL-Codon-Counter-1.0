@@ -18,6 +18,12 @@ jobs:
           - os: macos-latest
             architecture: armhf
           - os: macos-latest
+            python-version: 3.1
+            architecture: arm64
+          - os: macos-latest
+            python-version: 3.1
+            architecture: x64
+          - os: macos-latest
             python-version: 3.6
             architecture: arm64
           - os: macos-latest
@@ -32,7 +38,6 @@ jobs:
           - os: macos-latest
             python-version: 3.8
             architecture: x64
-          - python-version: 3.1
 
     runs-on: ${{ matrix.os }}
 
@@ -84,11 +89,13 @@ jobs:
         brew update
         brew install openblas
         brew install gcc
+        brew install qt
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
+        export PATH="/usr/local/opt/qt/bin:$PATH"
 
     - name: Install dependencies
       run: |
