@@ -18,22 +18,19 @@ jobs:
           - os: macos-latest
             architecture: armhf
           - os: macos-latest
-            python-version: 3.1
-            architecture: arm64
-          - os: macos-latest
-            python-version: 3.1
-            architecture: x64
-          - os: macos-latest
-            python-version: 3.6
-            architecture: arm64
-          - os: macos-latest
-            python-version: 3.6
+            python-version: 3.7
             architecture: x64
           - os: macos-latest
             python-version: 3.7
             architecture: arm64
           - os: macos-latest
-            python-version: 3.7
+            python-version: 3.8
+            architecture: x64
+          - os: macos-latest
+            python-version: 3.8
+            architecture: arm64
+          - os: macos-latest
+            python-version: 3.11
             architecture: x64
 
     runs-on: ${{ matrix.os }}
@@ -85,6 +82,10 @@ jobs:
       run: |
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
+
+    - name: Update pip and setuptools
+      run: |
+        python -m pip install --upgrade pip setuptools
 
     - name: Install dependencies
       run: |
