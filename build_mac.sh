@@ -4,19 +4,22 @@
 APP_NAME="AL Codon Counter"
 VERSION="1.0"
 INSTALL_LOCATION="/Applications/$APP_NAME"
-PKG_ID="com.yourdomain.$APP_NAME"
+PKG_ID="com.HoussemBenKhalfallah.$APP_NAME"
 BUILD_DIR="build"
 DIST_DIR="dist"
-RESOURCES_DIR="resources"
+RESOURCES_DIR="JPG_PNG IMAGES"
 PLIST_FILE="$APP_NAME.plist"
 SHORTCUT_SCRIPT="create_shortcuts.sh"
 
 # Clean up previous builds
 rm -rf $BUILD_DIR $DIST_DIR
-mkdir -p $BUILD_DIR $DIST_DIR $RESOURCES_DIR
+mkdir -p $BUILD_DIR $DIST_DIR
 
 # Create the application bundle
 pyinstaller --onefile --windowed --name "AL_CODON_APP" interface_AL_Counter.py
+
+# Move the bundled application to the distribution directory
+mv dist/AL_CODON_APP $DIST_DIR/
 
 # Create the .plist file
 cat <<EOL > $RESOURCES_DIR/$PLIST_FILE
