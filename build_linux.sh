@@ -8,6 +8,7 @@ BUILD_DIR="build"
 DIST_DIR="dist"
 DESKTOP_FILE="AL_CODON_APP.desktop"
 DESKTOP_DIR="$HOME/.local/share/applications"
+RESOURCES_DIR="JPG_PNG IMAGES"
 
 # Clean up previous builds
 rm -rf $BUILD_DIR $DIST_DIR
@@ -15,6 +16,9 @@ mkdir -p $BUILD_DIR $DIST_DIR
 
 # Create the application bundle
 pyinstaller --onefile --name "AL_CODON_APP" interface_AL_Counter.py
+
+# Move the bundled application to the distribution directory
+mv dist/AL_CODON_APP $DIST_DIR/
 
 # Create the .desktop file
 cat <<EOL > $BUILD_DIR/$DESKTOP_FILE
@@ -34,7 +38,7 @@ cat <<EOL > $BUILD_DIR/install.sh
 #!/bin/bash
 echo "Installing $APP_NAME..."
 mkdir -p $INSTALL_DIR
-cp -r * $INSTALL_DIR
+cp -r ./* $INSTALL_DIR
 ln -s $INSTALL_DIR/AL_CODON_APP /usr/local/bin/AL_CODON_APP
 cp $INSTALL_DIR/$DESKTOP_FILE $DESKTOP_DIR/$DESKTOP_FILE
 chmod +x $DESKTOP_DIR/$DESKTOP_FILE
