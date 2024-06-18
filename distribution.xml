@@ -11,7 +11,7 @@
     </choices-outline>
     <choice id="default"/>
     <choice id="pkg" title="AL Codon Counter" description="Install AL Codon Counter">
-        <pkg-ref id="com.yourdomain.AL Codon Counter"/>
+        <pkg-ref id="com.yourdomain.AL_Codon_Counter"/>
     </choice>
-    <pkg-ref id="com.yourdomain.AL Codon Counter" version="1.0" onConclusion="none">#pkg</pkg-ref>
+    <pkg-ref id="com.yourdomain.AL_Codon_Counter" version="1.0" onConclusion="none">#pkg</pkg-ref>
 </installer-gui-script>
