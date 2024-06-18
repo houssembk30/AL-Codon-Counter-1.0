@@ -38,6 +38,15 @@ jobs:
           - os: macos-latest
             python-version: 3.8
             architecture: x64
+          - os: macos-latest
+            python-version: 3.8
+            architecture: arm64
+          - os: macos-latest
+            python-version: 3.11
+            architecture: x64
+          - os: macos-latest
+            python-version: 3.11
+            architecture: arm64
 
     runs-on: ${{ matrix.os }}
 
@@ -91,10 +100,11 @@ jobs:
         brew install gcc
         brew install python@${{ matrix.python-version }}
         export MACOSX_DEPLOYMENT_TARGET="10.15"
-        python${{ matrix.python-version }} -m pip install --upgrade pip
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
+        python${{ matrix.python-version }} -m pip install --upgrade pip
+        python${{ matrix.python-version }} -m pip install cython
 
     - name: Install dependencies
       run: |
