@@ -90,10 +90,12 @@ jobs:
         brew install openblas
         brew install gcc
         brew install python@${{ matrix.python-version }}
-        python${{ matrix.python-version }} -m pip install --upgrade pip
+        export MACOSX_DEPLOYMENT_TARGET="10.15"
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
+        python${{ matrix.python-version }} -m pip install --upgrade pip
+        python${{ matrix.python-version }} -m pip install cython
 
     - name: Install dependencies
       run: |
