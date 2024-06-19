@@ -65,6 +65,8 @@ jobs:
       if: matrix.os == 'ubuntu-latest' && matrix.architecture == 'arm64'
       run: |
         sudo apt-get update
+        sudo add-apt-repository ppa:deadsnakes/ppa
+        sudo apt-get update
         sudo apt-get install -y python${{ matrix.python-version }}:arm64
         sudo ln -s /usr/bin/python${{ matrix.python-version }} /usr/bin/python3
         python3 -m pip install --upgrade pip
