@@ -13,7 +13,7 @@ jobs:
         python-version: [3.6, 3.7, 3.8, 3.9, 3.10, 3.11]
         architecture: [x64, x32, arm64, armhf]
         exclude:
-            - os: macos-latest
+          - os: macos-latest
             architecture: x32
           - os: macos-latest
             architecture: armhf
@@ -36,15 +36,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        node-version: '20'
 
     - name: Set up Python for x64 and arm64
       if: matrix.architecture != 'x32' && matrix.architecture != 'armhf'
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-        node-version: '20'
 
     - name: Set up Python for x32 on Windows
       if: matrix.os == 'windows-latest' && matrix.architecture == 'x32'
