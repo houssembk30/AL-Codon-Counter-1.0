@@ -30,12 +30,117 @@ jobs:
           - os: macos-latest
             python-version: 3.7
             architecture: x64
+          - os: macos-latest
+            python-version: 3.11
+            architecture: x64
+          - os: macos-latest
+            python-version: 3.8
+            architecture: arm64
+          - os: macos-latest
+            python-version: 3.9
+            architecture: arm64
           - os: ubuntu-latest
             python-version: 3.11
             architecture: arm64
           - os: ubuntu-latest
             python-version: 3.11
             architecture: armhf
+          - os: ubuntu-latest
+            python-version: 3.11
+            architecture: x32
+          - os: ubuntu-latest
+            python-version: 3.6
+            architecture: x32
+          - os: ubuntu-latest
+            python-version: 3.6
+            architecture: armhf
+          - os: ubuntu-latest
+            python-version: 3.6
+            architecture: x64
+          - os: ubuntu-latest
+            python-version: 3.6
+            architecture: arm64
+          - os: ubuntu-latest
+            python-version: 3.7
+            architecture: arm64
+          - os: ubuntu-latest
+            python-version: 3.8
+            architecture: arm64
+          - os: ubuntu-latest
+            python-version: 3.8
+            architecture: x32
+          - os: ubuntu-latest
+            python-version: 3.8
+            architecture: armhf
+          - os: ubuntu-latest
+            python-version: 3.7
+            architecture: armhf
+          - os: ubuntu-latest
+            python-version: 3.7
+            architecture: x32
+          - os: ubuntu-latest
+            python-version: 3.7
+            architecture: x64
+          - os: ubuntu-latest
+            python-version: 3.9
+            architecture: arm64
+          - os: ubuntu-latest
+            python-version: 3.9
+            architecture: armhf
+          - os: ubuntu-latest
+            python-version: 3.9
+            architecture: x32
+          - os: ubuntu-latest
+            python-version: 3.9
+            architecture: x64
+          - os: windows-latest
+            python-version: 3.6
+            architecture: armhf
+          - os: windows-latest
+            python-version: 3.6
+            architecture: arm64
+          - os: windows-latest
+            python-version: 3.6
+            architecture: x64
+          - os: windows-latest
+            python-version: 3.6
+            architecture: x32
+          - os: windows-latest
+            python-version: 3.7
+            architecture: arm64
+          - os: windows-latest
+            python-version: 3.7
+            architecture: armhf
+          - os: windows-latest
+            python-version: 3.7
+            architecture: x64
+          - os: windows-latest
+            python-version: 3.7
+            architecture: x32
+          - os: windows-latest
+            python-version: 3.8
+            architecture: arm64
+          - os: windows-latest
+            python-version: 3.8
+            architecture: armhf
+          - os: windows-latest
+            python-version: 3.8
+            architecture: x64
+          - os: windows-latest
+            python-version: 3.8
+            architecture: x32
+          - os: windows-latest
+            python-version: 3.9
+            architecture: arm64
+          - os: windows-latest
+            python-version: 3.9
+            architecture: armhf
+          - os: windows-latest
+            python-version: 3.9
+            architecture: x64
+          - os: windows-latest
+            python-version: 3.9
+            architecture: x32
 
     runs-on: ${{ matrix.os }}
 
@@ -87,7 +192,6 @@ jobs:
         brew update
         brew install openblas
         brew install gcc
-        brew install qt
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
