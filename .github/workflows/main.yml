@@ -87,6 +87,7 @@ jobs:
         brew update
         brew install openblas
         brew install gcc
+        brew install qt
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
