@@ -30,7 +30,7 @@ jobs:
           - os: macos-latest
             python-version: 3.7
             architecture: x64
-          - os: macos-latest
+          - os: ubuntu-latest
             python-version: 3.11
             architecture: arm64
 
@@ -64,8 +64,6 @@ jobs:
     - name: Install dependencies for arm64 on Ubuntu
       if: matrix.os == 'ubuntu-latest' && matrix.architecture == 'arm64'
       run: |
-        sudo apt-get update
-        sudo add-apt-repository ppa:deadsnakes/ppa
         sudo apt-get update
         sudo apt-get install -y python${{ matrix.python-version }}:arm64
         sudo ln -s /usr/bin/python${{ matrix.python-version }} /usr/bin/python3
