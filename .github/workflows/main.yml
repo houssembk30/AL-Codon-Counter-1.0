@@ -30,6 +30,9 @@ jobs:
           - os: macos-latest
             python-version: 3.7
             architecture: x64
+          - os: macos-latest
+            python-version: 3.11
+            architecture: arm64
 
     runs-on: ${{ matrix.os }}
 
