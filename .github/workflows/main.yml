@@ -13,11 +13,23 @@ jobs:
         python-version: [3.6, 3.7, 3.8, 3.9, 3.10, 3.11]
         architecture: [x64, x32, arm64, armhf]
         exclude:
-          - os: macos-latest
+            - os: macos-latest
             architecture: x32
           - os: macos-latest
             architecture: armhf
           - python-version: 3.1
+          - os: macos-latest
+            python-version: 3.6
+            architecture: arm64
+          - os: macos-latest
+            python-version: 3.6
+            architecture: x64
+          - os: macos-latest
+            python-version: 3.7
+            architecture: arm64
+          - os: macos-latest
+            python-version: 3.7
+            architecture: x64
 
     runs-on: ${{ matrix.os }}
 
