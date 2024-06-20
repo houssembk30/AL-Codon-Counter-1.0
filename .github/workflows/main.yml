@@ -217,18 +217,23 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+     
     
-
+    # Install Inno Setup FOR Windows
+    - name: Install Inno Setup
+      if: matrix.os == 'windows-latest'
+      run: choco install innosetup    
     # Build executable for Windows
     - name: Build executable for Windows
       if: matrix.os == 'windows-latest'
       run: |
         pip install pyinstaller
-        if (Test-Path 'AL_CODON_APP.spec') { pyinstaller AL_CODON_APP.spec } else { pyinstaller --onefile --windowed --name AL_CODON_APP interface_AL_Counter.py }
-        # Specify the path to Inno Setup compiler
-        $innosetup = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-        & $innosetup 'F:\AL CODON APP FINAL VERSION\AL_CODON_APP.iss'
-
+        if (Test-Path 'AL_CODON_APP.spec') {pyinstaller AL_CODON_APP.spec} else {pyinstaller --onefile --windowed --name AL_CODON_APP interface_AL_Counter.py}
+    # Create installer using Inno Setup 
+    - name: Create installer using Inno Setup
+      if: matrix.os == 'windows-latest'
+      run: |
+        "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" 'F:\AL CODON APP FINAL VERSION\AL_CODON_APP.iss'
     # Build executable for macOS
     - name: Build executable for macOS
       if: matrix.os == 'macos-latest'
