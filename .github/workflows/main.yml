@@ -224,8 +224,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         pip install pyinstaller
-        if [ -f AL_CODON_APP.spec ]; then pyinstaller AL_CODON_APP.spec; else pyinstaller --onefile --windowed --name AL_CODON_APP interface_AL_Counter.py; fi
-        # Run Inno Setup to create the installer
+        if (Test-Path 'AL_CODON_APP.spec') { pyinstaller AL_CODON_APP.spec } else { pyinstaller --onefile --windowed --name AL_CODON_APP interface_AL_Counter.py }
         innosetup-compiler AL_CODON_APP.iss
 
     # Build executable for macOS
