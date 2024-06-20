@@ -173,6 +173,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest' && matrix.architecture == 'arm64'
       run: |
         sudo apt-get update
+        sudo apt-get install -y makeself
         sudo apt-get install -y python${{ matrix.python-version }}:arm64
         sudo ln -s /usr/bin/python${{ matrix.python-version }} /usr/bin/python3
         python3 -m pip install --upgrade pip
@@ -199,7 +200,14 @@ jobs:
         export PATH="/usr/local/opt/gcc/bin:$PATH"
         export MACOSX_DEPLOYMENT_TARGET="10.15"
 
+    - name: Install dependencies for Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        python -m pip install --upgrade pip
+        if (Test-Path requirements.txt) {pip install -r requirements.txt}
+
     - name: Install dependencies
+      if: matrix.os != 'windows-latest'
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
