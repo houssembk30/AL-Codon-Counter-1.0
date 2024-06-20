@@ -199,12 +199,20 @@ jobs:
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
-        export MACOSX_DEPLOYMENT_TARGET="10.15"
-
-    - name: Install dependencies
+        export MACOSX_DEPLOYMENT_TARGET="10.15"       
+    # Install dependencies FOR Windows
+    - name: Install dependencies FOR Windows
+      if: matrix.os == 'windows-latest'
       run: |
         python -m pip install --upgrade pip
         if (Test-Path requirements.txt) { pip install -r requirements.txt }
+    # Install dependencies FOR Mac and Linux
+    - name: Install dependencies FOR Mac and Linux
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
 
     # Build executable for Windows
     - name: Build executable for Windows
