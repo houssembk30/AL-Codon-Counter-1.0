@@ -229,8 +229,8 @@ jobs:
       if: matrix.os == 'windows-latest'
       id: innosetup
       run: |
-         $path = (Get-Command iscc.exe | Select-Object -ExpandProperty Definition)
-         echo "::set-output name=path::C:\Program Files (x86)\Inno Setup 6\ISCC.exe"       
+         $path = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+         echo "::set-output name=path::$path"       
     # Build executable for Windows
     - name: Build executable for Windows
       if: matrix.os == 'windows-latest'
