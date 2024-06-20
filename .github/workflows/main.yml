@@ -37,6 +37,9 @@ jobs:
             python-version: 3.8
             architecture: arm64
           - os: macos-latest
+            python-version: 3.8
+            architecture: x64
+          - os: macos-latest
             python-version: 3.9
             architecture: arm64
           - os: ubuntu-latest
@@ -192,6 +195,8 @@ jobs:
         brew update
         brew install openblas
         brew install gcc
+        brew install qt  # Add this line to install qt
+        brew install cmake  # Add this line to install cmake
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
         python${{ matrix.python-version }} -m pip install --upgrade setuptools wheel
@@ -199,7 +204,7 @@ jobs:
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
-        export MACOSX_DEPLOYMENT_TARGET="10.15"    
+        export MACOSX_DEPLOYMENT_TARGET="10.15"   
     # Install dependencies FOR Windows
     - name: Install dependencies
       if: matrix.os == 'windows-latest'
