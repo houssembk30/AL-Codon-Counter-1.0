@@ -195,8 +195,11 @@ jobs:
         brew update
         brew install openblas
         brew install gcc
-        brew install qt  # Add this line to install qt
-        brew install cmake  # Add this line to install cmake
+        brew install qt
+        brew install cmake
+        brew link --force qt  # Ensure Qt is correctly linked
+        export PATH="/usr/local/opt/qt/bin:$PATH"
+        export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
         python${{ matrix.python-version }} -m pip install --upgrade setuptools wheel
