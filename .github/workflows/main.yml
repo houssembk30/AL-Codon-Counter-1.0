@@ -197,7 +197,7 @@ jobs:
         brew install gcc
         brew install qt
         brew install cmake
-        brew link --force qt  # Ensure Qt is correctly linked
+        brew link --force qt
         export PATH="/usr/local/opt/qt/bin:$PATH"
         export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
         brew install python@${{ matrix.python-version }}
@@ -207,7 +207,8 @@ jobs:
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
-        export MACOSX_DEPLOYMENT_TARGET="10.15"   
+        export MACOSX_DEPLOYMENT_TARGET="10.15"
+        python -m pip install --upgrade sip==6.7.0 PyQt5==5.15.4   
     # Install dependencies FOR Windows
     - name: Install dependencies
       if: matrix.os == 'windows-latest'
