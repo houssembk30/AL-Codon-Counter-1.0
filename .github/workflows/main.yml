@@ -220,20 +220,28 @@ jobs:
      
     
     # Install Inno Setup FOR Windows
+    # ---> Install Inno Setup
     - name: Install Inno Setup
       if: matrix.os == 'windows-latest'
-      run: choco install innosetup    
+      run: choco install innosetup 
+    # ---> Find Inno Setup Path
+    - name: Find Inno Setup Path
+      if: matrix.os == 'windows-latest'
+      id: innosetup
+      run: |
+         $path = (Get-Command iscc.exe | Select-Object -ExpandProperty Definition)
+         echo "::set-output name=path::C:\Program Files (x86)\Inno Setup 6\ISCC.exe"       
     # Build executable for Windows
     - name: Build executable for Windows
       if: matrix.os == 'windows-latest'
       run: |
         pip install pyinstaller
         if (Test-Path 'AL_CODON_APP.spec') {pyinstaller AL_CODON_APP.spec} else {pyinstaller --onefile --windowed --name AL_CODON_APP interface_AL_Counter.py}
-    # Create installer using Inno Setup 
+    # ---> Create installer using Inno Setup 
     - name: Create installer using Inno Setup
       if: matrix.os == 'windows-latest'
       run: |
-        "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" 'F:\AL CODON APP FINAL VERSION\AL_CODON_APP.iss'
+         ${{ steps.innosetup.outputs.path }} 'AL_CODON_APP.iss'
     # Build executable for macOS
     - name: Build executable for macOS
       if: matrix.os == 'macos-latest'
