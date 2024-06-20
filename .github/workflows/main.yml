@@ -194,12 +194,12 @@ jobs:
         brew install gcc
         brew install python@${{ matrix.python-version }}
         python${{ matrix.python-version }} -m pip install --upgrade pip
-        python${{ matrix.python-version }} -m pip install --upgrade pip
-        python${{ matrix.python-version }} -m pip install --upgrade pip
+        python${{ matrix.python-version }} -m pip install --upgrade setuptools wheel
+        if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
         export PATH="/usr/local/opt/gcc/bin:$PATH"
-        export MACOSX_DEPLOYMENT_TARGET="10.15"       
+        export MACOSX_DEPLOYMENT_TARGET="10.15"    
     # Install dependencies FOR Windows
     - name: Install dependencies
       if: matrix.os == 'windows-latest'
