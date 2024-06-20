@@ -229,8 +229,8 @@ jobs:
         chmod +x build_linux.sh
         ./build_linux.sh
 
-        - name: Upload artifact
-      uses: actions/upload-artifact@v3
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
         name: built-application-${{ matrix.os }}-${{ matrix.architecture }}-python-${{ matrix.python-version }}
         path: |
