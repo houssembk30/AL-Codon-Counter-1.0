@@ -211,7 +211,8 @@ jobs:
         export QMAKE=/usr/local/opt/qt/bin/qmake
         export QT_PLUGIN_PATH="/usr/local/opt/qt/plugins"
         export PYQT5_SIP_DIR="/usr/local/opt/qt/lib/qt5/plugins"
-        python -m pip install --upgrade sip==6.7.0 PyQt5==5.15.4   
+        python -m pip install sip==5.5.0
+        python -m pip install PyQt5==5.15.2   
     # Install dependencies FOR Windows
     - name: Install dependencies
       if: matrix.os == 'windows-latest'
