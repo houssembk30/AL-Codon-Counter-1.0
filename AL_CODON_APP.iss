@@ -3,17 +3,17 @@
 AppName=AL Codon Counter
 ; Version de l'application
 AppVersion=1.0
-; Répertoire d'installation par défaut
+; RÃ©pertoire d'installation par dÃ©faut
 DefaultDirName={commonpf}\AL Codon Counter
-; Dossier de l'application dans le menu démarrer
+; Dossier de l'application dans le menu dÃ©marrer
 DefaultGroupName=AL Codon Counter
 ; Fichier de sortie
 OutputBaseFilename=AL_Codon_Counter_Installer
-; Icône de l'installation
-SetupIconFile=F:\AL CODON APP FINAL VERSION\JPG_PNG IMAGES\logo_ICON.ico
+; IcÃ´ne de l'installation
+SetupIconFile={#MyAppSourceDir}\JPG_PNG IMAGES\logo_ICON.ico
 ; Compresser l'installeur
 Compression=lzma
-; Réduire la taille du fichier d'installation
+; RÃ©duire la taille du fichier d'installation
 SolidCompression=yes
 
 [Languages]
@@ -43,22 +43,22 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
 ; Inclure tous les fichiers de l'application
-Source: "F:\AL CODON APP FINAL VERSION\dist\AL CODON Version 1.0 Folder\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppSourceDir}\dist\AL CODON Version 1.0 Folder\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-; Créer un raccourci sur le bureau
+; CrÃ©er un raccourci sur le bureau
 Name: "{commondesktop}\AL Codon Counter"; Filename: "{app}\AL CODON Version 1.0.exe"; IconFilename: "{app}\JPG_PNG IMAGES\logo_ICON.ico"; WorkingDir: "{app}"
-; Créer un raccourci dans le menu démarrer
+; CrÃ©er un raccourci dans le menu dÃ©marrer
 Name: "{group}\AL Codon Counter"; Filename: "{app}\AL CODON Version 1.0.exe"; IconFilename: "{app}\JPG_PNG IMAGES\logo_ICON.ico"; WorkingDir: "{app}"
-; Ajouter une option de désinstallation dans le menu démarrer
+; Ajouter une option de dÃ©sinstallation dans le menu dÃ©marrer
 Name: "{group}\Uninstall AL Codon Counter"; Filename: "{uninstallexe}"
 
 [Run]
-; Exécuter l'application à la fin de l'installation
+; ExÃ©cuter l'application Ã  la fin de l'installation
 Filename: "{app}\AL CODON Version 1.0.exe"; Description: "{cm:LaunchProgram,AL Codon Counter}"; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
-; Supprimer le répertoire d'installation entier
+; Supprimer le rÃ©pertoire d'installation entier
 Type: filesandordirs; Name: "{app}"
 
 [InstallDelete]
