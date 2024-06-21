@@ -244,6 +244,7 @@ jobs:
          choco install mingw
          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
          choco install 7zip
+         choco install qt5-sdk
          python -m pip install --upgrade pip setuptools==58.0.4 wheel
          python -m pip install numpy==1.21.0 pandas==1.3.0 PyQt5-sip==12.9.0   
          if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
