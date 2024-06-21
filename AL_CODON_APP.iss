@@ -10,7 +10,7 @@ DefaultGroupName=AL Codon Counter
 ; Fichier de sortie
 OutputBaseFilename=AL_Codon_Counter_Installer
 ; Icône de l'installation
-SetupIconFile={#MyAppSourceDir}\JPG_PNG IMAGES\logo_ICON.ico
+SetupIconFile=JPG_PNG IMAGES\logo_ICON.ico
 ; Compresser l'installeur
 Compression=lzma
 ; Réduire la taille du fichier d'installation
@@ -43,7 +43,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
 ; Inclure tous les fichiers de l'application
-Source: "{#MyAppSourceDir}\dist\AL CODON Version 1.0 Folder\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "dist\AL CODON Version 1.0 Folder\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 ; Créer un raccourci sur le bureau
@@ -65,12 +65,3 @@ Type: filesandordirs; Name: "{app}"
 ; Supprimer les fichiers restants et les raccourcis
 Type: files; Name: "{commondesktop}\AL Codon Counter.lnk"
 Type: files; Name: "{group}\AL Codon Counter.lnk"
-[Code]
-var
-  MyAppSourceDir: string;
-
-function InitializeSetup(): Boolean;
-begin
-  MyAppSourceDir := ExpandConstant('{src}');
-  Result := True;
-end;
