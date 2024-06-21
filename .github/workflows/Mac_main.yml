@@ -12,14 +12,14 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        python-version: [ 3.9, 3.10, 3.11]
+        python-version: [3.9, 3.10, 3.11]
         architecture: [x64, arm64]
         exclude:
-               - python-version: 3.1
-               - python-version: 3.6
-                 architecture: arm64
-               - python-version: 3.7
-                 architecture: arm64
+          - python-version: 3.1
+          - python-version: 3.6
+            architecture: arm64
+          - python-version: 3.7
+            architecture: arm64
 
     runs-on: ${{ matrix.os }}
 
@@ -37,98 +37,110 @@ jobs:
     - name: Install dependencies for macOS (x64)
       if: matrix.architecture == 'x64'
       run: |
-            brew update
-            brew install openblas gcc qt cmake p7zip
-            brew link --force qt
-            export PATH="/usr/local/opt/qt/bin:$PATH"
-            export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
-            brew install python@${{ matrix.python-version }}
-            python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==58.0.4 wheel
-            python${{ matrix.python-version }} -m pip install setuptools==58.0.4 --upgrade
-            if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
-            export LDFLAGS="-L/usr/local/opt/openblas/lib"
-            export CPPFLAGS="-I/usr/local/opt/openblas/include"
-            export PATH="/usr/local/opt/gcc/bin:$PATH"
-            export MACOSX_DEPLOYMENT_TARGET="10.15"
-            export QMAKE=/usr/local/opt/qt/bin/qmake
-            export QT_PLUGIN_PATH="/usr/local/opt/qt/plugins"
-            python${{ matrix.python-version }} -m pip install sip==6.6.2 pyqt-builder==1.12.0
-            python${{ matrix.python-version }} -m pip install numpy==1.21.0 pandas==1.1.5 Pillow==8.4.0 pyparsing==3.0.7
-            pip install toml
-            
-    #  Install dependencies for macOS (arm64)
+        brew update
+        brew install openblas gcc qt cmake p7zip
+        brew link --force qt
+        export PATH="/usr/local/opt/qt/bin:$PATH"
+        export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
+        brew install python@${{ matrix.python-version }}
+
+    - name: Upgrade pip
+      run: python${{ matrix.python-version }} -m pip install --upgrade pip
+
+    - name: Install setuptools and wheel
+      run: python${{ matrix.python-version }} -m pip install setuptools==58.0.4 wheel
+
+    - name: Install additional dependencies
+      run: |
+        if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
+        export LDFLAGS="-L/usr/local/opt/openblas/lib"
+        export CPPFLAGS="-I/usr/local/opt/openblas/include"
+        export PATH="/usr/local/opt/gcc/bin:$PATH"
+        export MACOSX_DEPLOYMENT_TARGET="10.15"
+        export QMAKE=/usr/local/opt/qt/bin/qmake
+        export QT_PLUGIN_PATH="/usr/local/opt/qt/plugins"
+        python${{ matrix.python-version }} -m pip install sip==6.6.2 pyqt-builder==1.12.0
+        python${{ matrix.python-version }} -m pip install numpy==1.21.0 pandas==1.1.5 Pillow==8.4.0 pyparsing==3.0.7
+        pip install toml
+
+    # Install dependencies for macOS (arm64)
     - name: Install dependencies for macOS (arm64)
       if: matrix.architecture == 'arm64'
       run: |
-            brew update
-            brew install openblas gcc qt cmake p7zip
-            brew link --force qt
-            export PATH="/opt/homebrew/opt/qt/bin:$PATH"
-            export PKG_CONFIG_PATH="/opt/homebrew/opt/qt/lib/pkgconfig"
-            brew install python@${{ matrix.python-version }}
-            python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==58.0.4 wheel
-            python${{ matrix.python-version }} -m pip install setuptools==58.0.4 --upgrade
-            if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
-            export LDFLAGS="-L/opt/homebrew/opt/openblas/lib"
-            export CPPFLAGS="-I/opt/homebrew/opt/openblas/include"
-            export PATH="/opt/homebrew/opt/gcc/bin:$PATH"
-            export MACOSX_DEPLOYMENT_TARGET="10.15"
-            export QMAKE=/opt/homebrew/opt/qt/bin/qmake
-            export QT_PLUGIN_PATH="/opt/homebrew/opt/qt/plugins"
-            python${{ matrix.python-version }} -m pip install sip==6.6.2 pyqt-builder==1.12.0
-            python${{ matrix.python-version }} -m pip install numpy==1.21.0 pandas==1.1.5 Pillow==8.4.0 pyparsing==3.0.7
-            pip install toml
+        brew update
+        brew install openblas gcc qt cmake p7zip
+        brew link --force qt
+        export PATH="/opt/homebrew/opt/qt/bin:$PATH"
+        export PKG_CONFIG_PATH="/opt/homebrew/opt/qt/lib/pkgconfig"
+        brew install python@${{ matrix.python-version }}
 
-        
+    - name: Upgrade pip for arm64
+      run: python${{ matrix.python-version }} -m pip install --upgrade pip
+
+    - name: Install setuptools and wheel for arm64
+      run: python${{ matrix.python-version }} -m pip install setuptools==58.0.4 wheel
+
+    - name: Install additional dependencies for arm64
+      run: |
+        if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
+        export LDFLAGS="-L/opt/homebrew/opt/openblas/lib"
+        export CPPFLAGS="-I/opt/homebrew/opt/openblas/include"
+        export PATH="/opt/homebrew/opt/gcc/bin:$PATH"
+        export MACOSX_DEPLOYMENT_TARGET="10.15"
+        export QMAKE=/opt/homebrew/opt/qt/bin/qmake
+        export QT_PLUGIN_PATH="/opt/homebrew/opt/qt/plugins"
+        python${{ matrix.python-version }} -m pip install sip==6.6.2 pyqt-builder==1.12.0
+        python${{ matrix.python-version }} -m pip install numpy==1.21.0 pandas==1.1.5 Pillow==8.4.0 pyparsing==3.0.7
+        pip install toml
+
     # Ensure dist directory exists for macOS
     - name: Ensure dist directory exists for macOS
       if: matrix.os == 'macos-latest'
-      run: |
-            mkdir -p dist
-    
+      run: mkdir -p dist
+
     # Unzip PyQt5 files for macOS (x64)
     - name: Unzip PyQt5 files for macOS (x64)
       if: matrix.architecture == 'x64'
       run: |
-          mkdir pyqt5_files
-          curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
-          curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
-          curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
-          7z x pyqt5_files.part1.rar -opyqt5_files/
-          7z x pyqt5_files.part2.rar -opyqt5_files/
-          7z x pyqt5_files.part3.rar -opyqt5_files/
+        mkdir pyqt5_files
+        curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
+        curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
+        curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
+        7z x pyqt5_files.part1.rar -opyqt5_files/
+        7z x pyqt5_files.part2.rar -opyqt5_files/
+        7z x pyqt5_files.part3.rar -opyqt5_files/
 
     # Unzip PyQt5 files for macOS (arm64)
     - name: Unzip PyQt5 files for macOS (arm64)
       if: matrix.architecture == 'arm64'
       run: |
-          mkdir pyqt5_files
-          curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
-          curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
-          curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
-          7z x pyqt5_files.part1.rar -opyqt5_files/
-          7z x pyqt5_files.part2.rar -opyqt5_files/
-          7z x pyqt5_files.part3.rar -opyqt5_files/
+        mkdir pyqt5_files
+        curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
+        curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
+        curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
+        7z x pyqt5_files.part1.rar -opyqt5_files/
+        7z x pyqt5_files.part2.rar -opyqt5_files/
+        7z x pyqt5_files.part3.rar -opyqt5_files/
 
     # Install PyQt5 from local files for macOS (x64)
     - name: Install PyQt5 from local files for macOS (x64)
       if: matrix.architecture == 'x64'
       run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/pyqt5_files
-          echo "Installing PyQt5 from local files..."
-          ls pyqt5_files  # List the contents of the pyqt5_files directory
-          python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
-          echo "PyQt5 installation complete."
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/pyqt5_files
+        echo "Installing PyQt5 from local files..."
+        ls pyqt5_files  # List the contents of the pyqt5_files directory
+        python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
+        echo "PyQt5 installation complete."
 
     # Install PyQt5 from local files for macOS (arm64)
     - name: Install PyQt5 from local files for macOS (arm64)
       if: matrix.architecture == 'arm64'
       run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/pyqt5_files
-          echo "Installing PyQt5 from local files..."
-          ls pyqt5_files  # List the contents of the pyqt5_files directory
-          python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
-          echo "PyQt5 installation complete."
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/pyqt5_files
+        echo "Installing PyQt5 from local files..."
+        ls pyqt5_files  # List the contents of the pyqt5_files directory
+        python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
+        echo "PyQt5 installation complete."
 
     # Build executable for macOS (x64)
     - name: Build executable for macOS (x64)
