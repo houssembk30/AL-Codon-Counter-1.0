@@ -225,6 +225,7 @@ jobs:
           unar pyqt5_files.part1.rar -o pyqt5_files/
           unar pyqt5_files.part2.rar -o pyqt5_files/
           unar pyqt5_files.part3.rar -o pyqt5_files/
+          
     # Install PyQt5 from local files for macOS
     - name: Install PyQt5 from local files for macOS
       if: matrix.os == 'macos-latest'
