@@ -45,5 +45,6 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='AL CODON Version 1.0 '
+    name='AL CODON Version 1.0',
+    dest='dist'
 )
