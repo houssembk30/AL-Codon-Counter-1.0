@@ -44,14 +44,16 @@ jobs:
         export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
         brew install python@${{ matrix.python-version }}
 
-    - name: Upgrade pip
+    - name: Upgrade pip for macOS (x64)
       run: python${{ matrix.python-version }} -m pip install --upgrade pip
 
-    - name: Install setuptools and wheel
+    - name: Install setuptools and wheel for macOS (x64)
       run: python${{ matrix.python-version }} -m pip install setuptools==58.0.4 wheel
 
-    - name: Install additional dependencies
+    - name: Install additional dependencies for macOS (x64)
       run: |
+        python${{ matrix.python-version }} -m ensurepip
+        python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==58.0.4 wheel
         if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
         export LDFLAGS="-L/usr/local/opt/openblas/lib"
         export CPPFLAGS="-I/usr/local/opt/openblas/include"
@@ -82,6 +84,8 @@ jobs:
 
     - name: Install additional dependencies for arm64
       run: |
+        python${{ matrix.python-version }} -m ensurepip
+        python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==58.0.4 wheel
         if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
         export LDFLAGS="-L/opt/homebrew/opt/openblas/lib"
         export CPPFLAGS="-I/opt/homebrew/opt/openblas/include"
