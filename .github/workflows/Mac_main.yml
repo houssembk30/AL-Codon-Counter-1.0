@@ -42,8 +42,7 @@ jobs:
        export PATH="/usr/local/opt/qt/bin:$PATH"
        export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
        brew install python@${{ matrix.python-version }}
-       python${{ matrix.python-version }} -m pip install --upgrade pip setuptools wheel
-       python${{ matrix.python-version }} -m pip install setuptools==70.1.0
+       python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==70.1.0 wheel
        if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
        export LDFLAGS="-L/usr/local/opt/openblas/lib"
        export CPPFLAGS="-I/usr/local/opt/openblas/include"
@@ -52,7 +51,8 @@ jobs:
        export QMAKE=/usr/local/opt/qt/bin/qmake
        export QT_PLUGIN_PATH="/usr/local/opt/qt/plugins"
        python${{ matrix.python-version }} -m pip install sip==6.6.2 pyqt-builder==1.12.0
-       python${{ matrix.python-version }} -m pip install numpy==1.21.0
+       python${{ matrix.python-version }} -m pip install numpy==1.21.0 pandas==1.1.5 Pillow==8.4.0 pyparsing==3.0.7
+       pip install toml
 
     - name: Install dependencies for macOS (arm64)
       if: matrix.architecture == 'arm64'
@@ -63,8 +63,7 @@ jobs:
         export PATH="/opt/homebrew/opt/qt/bin:$PATH"
         export PKG_CONFIG_PATH="/opt/homebrew/opt/qt/lib/pkgconfig"
         brew install python@${{ matrix.python-version }}
-        python${{ matrix.python-version }} -m pip install --upgrade pip setuptools wheel
-        python${{ matrix.python-version }} -m pip install setuptools==70.1.0
+        python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==70.1.0 wheel
         if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
         export LDFLAGS="-L/opt/homebrew/opt/openblas/lib"
         export CPPFLAGS="-I/opt/homebrew/opt/openblas/include"
@@ -73,7 +72,8 @@ jobs:
         export QMAKE=/opt/homebrew/opt/qt/bin/qmake
         export QT_PLUGIN_PATH="/opt/homebrew/opt/qt/plugins"
         python${{ matrix.python-version }} -m pip install sip==6.6.2 pyqt-builder==1.12.0
-        python${{ matrix.python-version }} -m pip install numpy==1.21.0
+        python${{ matrix.python-version }} -m pip install numpy==1.21.0 pandas==1.1.5 Pillow==8.4.0 pyparsing==3.0.7
+        pip install toml
         
     # Ensure dist directory exists for macOS
     - name: Ensure dist directory exists for macOS
