@@ -4,10 +4,10 @@ block_cipher = None
 
 a = Analysis(
     ['interface_AL_Counter.py'],
-    pathex=['F:\\AL CODON APP FINAL VERSION'],
+    pathex=['AL-Codon-Counter-1.0'],
     binaries=[],
-    datas=[('F:\\AL CODON APP FINAL VERSION\\JPG_PNG IMAGES', 'JPG_PNG IMAGES'),
-        ('F:\\AL CODON APP FINAL VERSION\\features', 'features')],
+    datas=[('JPG_PNG IMAGES', 'JPG_PNG IMAGES'),
+        ('features', 'features')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -45,5 +45,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='AL CODON Version 1.0 Folder'
+    name='AL CODON Version 1.0 '
 )
