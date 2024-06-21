@@ -291,7 +291,7 @@ jobs:
     - name: Create installer using Inno Setup
       if: matrix.os == 'windows-latest'
       run: |
-         ${{ steps.innosetup.outputs.path }} 'AL_CODON_APP.iss'
+          & 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' 'AL_CODON_APP.iss'
     # Build executable for macOS
     - name: Build executable for macOS
       if: matrix.os == 'macos-latest'
