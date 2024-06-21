@@ -235,27 +235,91 @@ jobs:
           ls pyqt5_files  # List the contents of the pyqt5_files directory
           python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
           echo "PyQt5 installation complete."
-    # Install dependencies FOR Windows
-    - name: Install dependencies FOR Windows
-      if: matrix.os == 'windows-latest'
+    # Install dependencies FOR Windows (x64)
+    - name: Install dependencies FOR Windows (x64)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'x64'
       run: |
-         choco install visualstudio2019buildtools
-         choco install visualstudio2019-workload-vctools
-         choco install mingw
-         choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-         choco install 7zip
-         choco install qt5-sdk
-         python -m pip install --upgrade pip setuptools==58.0.4 wheel
-         python -m pip install numpy==1.21.0 pandas==1.3.0 PyQt5-sip==12.9.0 
-         pip cache purge
-         pip install meson
-         pip install importlib-metadata
-         pip install subprocess.run
-         pip3 install wheel setuptools pip --upgrade
-         pip install toml
-         pip install numpy --use-deprecated=legacy-resolver
-         pip install setuptools-metadata
-         if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
+          choco install visualstudio2019buildtools
+          choco install visualstudio2019-workload-vctools
+          choco install mingw
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+          choco install 7zip
+          choco install qt5-sdk
+          python -m pip install --upgrade pip setuptools==58.0.4 wheel
+          python -m pip install numpy==1.21.0 pandas==1.3.0 PyQt5-sip==12.9.0 
+          pip cache purge
+          pip install meson
+          pip install importlib-metadata
+          pip install subprocess.run
+          pip3 install wheel setuptools pip --upgrade
+          pip install toml
+          pip install numpy --use-deprecated=legacy-resolver
+          pip install setuptools-metadata
+          if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
+    # Install dependencies FOR Windows (arm64)
+    - name: Install dependencies FOR Windows (arm64)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'arm64'
+      run: |
+           choco install visualstudio2019buildtools
+           choco install visualstudio2019-workload-vctools
+           choco install mingw
+           choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+           choco install 7zip
+           choco install qt5-sdk
+           python -m pip install --upgrade pip setuptools==58.0.4 wheel
+           python -m pip install numpy==1.21.0 pandas==1.3.0 PyQt5-sip==12.9.0 
+           pip cache purge
+           pip install meson
+           pip install importlib-metadata
+           pip install subprocess.run
+           pip3 install wheel setuptools pip --upgrade
+           pip install toml
+           pip install numpy --use-deprecated=legacy-resolver
+           pip install setuptools-metadata
+           if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
+    # Install dependencies FOR Windows (armhf)
+    - name: Install dependencies FOR Windows (armhf)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'armhf'
+      run: |
+          choco install visualstudio2019buildtools
+          choco install visualstudio2019-workload-vctools
+          choco install mingw
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+          choco install 7zip
+          choco install qt5-sdk
+          python -m pip install --upgrade pip setuptools==58.0.4 wheel
+          python -m pip install numpy==1.21.0 pandas==1.3.0 PyQt5-sip==12.9.0 
+          pip cache purge
+          pip install meson
+          pip install importlib-metadata
+          pip install subprocess.run
+          pip3 install wheel setuptools pip --upgrade
+          pip install toml
+          pip install numpy --use-deprecated=legacy-resolver
+          pip install setuptools-metadata
+          if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
+    # Install dependencies FOR Windows (x32)
+    - name: Install dependencies FOR Windows (x32)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'x32'
+      run: |
+            choco install visualstudio2019buildtools
+            choco install visualstudio2019-workload-vctools
+            choco install mingw
+            choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+            choco install 7zip
+            choco install qt5-sdk
+            python -m pip install --upgrade pip setuptools==58.0.4 wheel
+            python -m pip install numpy==1.21.0 pandas==1.3.0 PyQt5-sip==12.9.0 
+            pip cache purge
+            pip install meson
+            pip install importlib-metadata
+            pip install subprocess.run
+            pip3 install wheel setuptools pip --upgrade
+            pip install toml
+            pip install numpy --use-deprecated=legacy-resolver
+            pip install setuptools-metadata
+            if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
+
 
     # Install PyQt5 from local files For Windows
     - name: Install PyQt5 from local files  For Windows
