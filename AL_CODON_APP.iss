@@ -65,3 +65,12 @@ Type: filesandordirs; Name: "{app}"
 ; Supprimer les fichiers restants et les raccourcis
 Type: files; Name: "{commondesktop}\AL Codon Counter.lnk"
 Type: files; Name: "{group}\AL Codon Counter.lnk"
+[Code]
+var
+  MyAppSourceDir: string;
+
+function InitializeSetup(): Boolean;
+begin
+  MyAppSourceDir := ExpandConstant('{src}');
+  Result := True;
+end;
