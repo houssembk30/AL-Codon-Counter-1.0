@@ -321,9 +321,9 @@ jobs:
             if (Test-Path requirements.txt) { python -m pip install -r requirements.txt }
 
 
-    # Install PyQt5 from local files For Windows
-    - name: Install PyQt5 from local files  For Windows
-      if: runner.os == 'Windows'
+    # Install PyQt5 from local files For Windows (x64)
+    - name: Install PyQt5 from local files For Windows (x64)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'x64'
       run: |
            curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
            curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
@@ -335,6 +335,52 @@ jobs:
            7z x pyqt5_files.part3.rar -opyqt5_files/
            $env:PYTHONPATH = "$env:PYTHONPATH;$PWD\pyqt5_files"
            python -m pip install --no-index --find-links=pyqt5_files PyQt5
+
+    # Install PyQt5 from local files For Windows (arm64)
+    - name: Install PyQt5 from local files For Windows (arm64)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'arm64'
+      run: |
+            curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
+            curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
+            curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
+            mkdir pyqt5_files
+            choco install 7zip
+            7z x pyqt5_files.part1.rar -opyqt5_files/
+            7z x pyqt5_files.part2.rar -opyqt5_files/
+            7z x pyqt5_files.part3.rar -opyqt5_files/
+            $env:PYTHONPATH = "$env:PYTHONPATH;$PWD\pyqt5_files"
+            python -m pip install --no-index --find-links=pyqt5_files PyQt5
+
+    # Install PyQt5 from local files For Windows (armhf)
+    - name: Install PyQt5 from local files For Windows (armhf)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'armhf'
+      run: |
+            curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
+            curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
+            curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
+            mkdir pyqt5_files
+            choco install 7zip
+            7z x pyqt5_files.part1.rar -opyqt5_files/
+            7z x pyqt5_files.part2.rar -opyqt5_files/
+            7z x pyqt5_files.part3.rar -opyqt5_files/
+            $env:PYTHONPATH = "$env:PYTHONPATH;$PWD\pyqt5_files"
+            python -m pip install --no-index --find-links=pyqt5_files PyQt5
+
+    # Install PyQt5 from local files For Windows (x32)
+    - name: Install PyQt5 from local files For Windows (x32)
+      if: matrix.os == 'windows-latest' && matrix.arch == 'x32'
+      run: |
+             curl -L -o pyqt5_files.part1.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part1.rar
+             curl -L -o pyqt5_files.part2.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part2.rar
+             curl -L -o pyqt5_files.part3.rar https://raw.githubusercontent.com/MariemJelassi/AL-Codon-Counter-1.0/main/pyqt5_files.part3.rar
+             mkdir pyqt5_files
+             choco install 7zip
+             7z x pyqt5_files.part1.rar -opyqt5_files/
+             7z x pyqt5_files.part2.rar -opyqt5_files/
+             7z x pyqt5_files.part3.rar -opyqt5_files/
+             $env:PYTHONPATH = "$env:PYTHONPATH;$PWD\pyqt5_files"
+             python -m pip install --no-index --find-links=pyqt5_files PyQt5
+       
     
     # Install Inno Setup FOR Windows
     # ---> Install Inno Setup FOR Windows
