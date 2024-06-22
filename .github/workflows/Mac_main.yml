@@ -29,7 +29,6 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set up Python for x64 and arm64
-      if: matrix.architecture == 'x64' || matrix.architecture == 'arm64'
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
@@ -53,21 +52,21 @@ jobs:
         if [ -d "./.venv" ]; then
           source ./.venv/bin/activate
         else
-          source $HOME/.poetry/bin/activate
+          source $HOME/.local/bin/poetry/bin/activate
         fi
-        pushd $HOME/.poetry/lib/poetry/_vendor/py3.*/pip/
+        pushd $HOME/.local/lib/poetry/_vendor/py3.*/pip/
         patch -p1 <<'EOF'
-        --- a/numpy/setup.py
-        +++ b/numpy/setup.py
-        @@ -234,7 +234,7 @@
+--- a/numpy/setup.py
++++ b/numpy/setup.py
+@@ -234,7 +234,7 @@
                 extra_compile_args.extend(['-fPIC'])
                 if cxx_flags is not None:
                     cxx_flags.extend(['-fPIC'])
-         -            if config.get_platform() == 'darwin' and config.machine == 'powerpc':
-         +            if config.get_platform() == 'darwin' and config.machine == 'powerpc' and False:
+-            if config.get_platform() == 'darwin' and config.machine == 'powerpc':
++            if config.get_platform() == 'darwin' and config.machine == 'powerpc' and False:
                 extra_compile_args.append('-faltivec')
             return extra_compile_args, extra_link_args
-        EOF
+EOF
         popd
         poetry install
 
