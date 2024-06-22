@@ -6,8 +6,8 @@ on:
       - master
     paths:
       - '.github/workflows/Mac_main.yml'
+    paths-ignore:
       - 'pyproject.toml'
-
 
 jobs:
   build:
@@ -81,18 +81,14 @@ jobs:
       if: matrix.architecture == 'x64'
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)/pyqt5_files
-        echo "Installing PyQt5 from local files..."
-        ls pyqt5_files
-        python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
+        poetry run pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
         echo "PyQt5 installation complete."
 
     - name: Install PyQt5 from local files for macOS (arm64)
       if: matrix.architecture == 'arm64'
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)/pyqt5_files
-        echo "Installing PyQt5 from local files..."
-        ls pyqt5_files
-        python${{ matrix.python-version }} -m pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
+        poetry run pip install --no-index --find-links=pyqt5_files PyQt5==5.15.4
         echo "PyQt5 installation complete."
 
     - name: Build executable for macOS (x64)
