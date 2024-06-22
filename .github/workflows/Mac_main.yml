@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - 'pyproject.toml'
-      - '.github/workflows/Mac_main.yml'
+     
     paths-ignore:
       - '.github/workflows/main.yml'
 
