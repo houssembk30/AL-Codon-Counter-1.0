@@ -50,7 +50,7 @@ jobs:
         export PATH="$HOME/.local/bin:$PATH"
         poetry run pip install setuptools wheel cython
         poetry run pip install numpy==1.19.5 --no-use-pep517
-        poetry install
+        poetry install --no-root
 
     - name: Ensure dist directory exists for macOS
       if: matrix.os == 'macos-latest'
