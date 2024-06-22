@@ -93,7 +93,6 @@ jobs:
       run: |
         python${{ matrix.python-version }} -m ensurepip
         python${{ matrix.python-version }} -m pip install --upgrade pip setuptools==58.0.4 wheel
-        python${{ matrix.python-version }} -m pip install setuptools==58.0.4 --upgrade
         if [ -f requirements.txt ]; then python${{ matrix.python-version }} -m pip install -r requirements.txt; fi
         export LDFLAGS="-L/opt/homebrew/opt/openblas/lib"
         export CPPFLAGS="-I/opt/homebrew/opt/openblas/include"
