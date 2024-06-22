@@ -48,9 +48,28 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.local/bin:$PATH"
-        poetry run pip install setuptools wheel cython==0.29.24
-        poetry run pip install numpy==1.19.5 --no-use-pep517
-        poetry install --no-root
+        poetry run pip install setuptools wheel cython
+        poetry run pip install numpy==1.19.5 --no-use-pep517 || true
+        if [ -d "./.venv" ]; then
+          source ./.venv/bin/activate
+        else
+          source $HOME/.poetry/bin/activate
+        fi
+        pushd $HOME/.poetry/lib/poetry/_vendor/py3.*/pip/
+        patch -p1 <<'EOF'
+--- a/numpy/setup.py
++++ b/numpy/setup.py
+@@ -234,7 +234,7 @@
+                extra_compile_args.extend(['-fPIC'])
+                if cxx_flags is not None:
+                    cxx_flags.extend(['-fPIC'])
+-            if config.get_platform() == 'darwin' and config.machine == 'powerpc':
++            if config.get_platform() == 'darwin' and config.machine == 'powerpc' and False:
+                extra_compile_args.append('-faltivec')
+            return extra_compile_args, extra_link_args
+EOF
+        popd
+        poetry install
 
     - name: Ensure dist directory exists for macOS
       if: matrix.os == 'macos-latest'
