@@ -48,7 +48,7 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.local/bin:$PATH"
-        poetry run pip install setuptools wheel cython
+        poetry run pip install setuptools wheel cython==0.29.24
         poetry run pip install numpy==1.19.5 --no-use-pep517
         poetry install --no-root
 
