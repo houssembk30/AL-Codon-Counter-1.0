@@ -6,7 +6,7 @@ authors = ["Houssem Khalfallah <houssembenkhalfallah@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.6.1,<4.0.0"
+python = ">=3.9,<4.0"
 beautifulsoup4 = "4.12.3"
 cycler = "0.11.0"
 kiwisolver = "1.3.1"
