@@ -58,13 +58,17 @@ jobs:
         export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig" || export PKG_CONFIG_PATH="/opt/homebrew/opt/qt/lib/pkgconfig"
         brew install python@${{ matrix.python-version }}
 
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        export PATH="$HOME/.local/bin:$PATH"
+
     - name: Uninstall Numpy
       run: |
         poetry run pip uninstall -y numpy
 
     - name: Install dependencies using Poetry
       run: |
-        curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.local/bin:$PATH"
         poetry run pip install setuptools wheel cython
         poetry install
