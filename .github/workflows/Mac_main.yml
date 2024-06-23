@@ -55,8 +55,6 @@ jobs:
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.local/bin:$PATH"
         poetry run pip install setuptools wheel cython
-        poetry run pip install numpy==1.19.5 --no-use-pep517 || true
-        sed -i.bak 's/-faltivec//' $(poetry env info --path)/lib/python3.*/site-packages/numpy/distutils/system_info.py
         poetry install
 
     - name: Ensure dist directory exists for macOS
