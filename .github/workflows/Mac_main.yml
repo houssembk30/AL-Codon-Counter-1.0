@@ -63,14 +63,11 @@ jobs:
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.local/bin:$PATH"
 
-    - name: Uninstall Numpy
-      run: |
-        poetry run pip uninstall -y numpy
-
     - name: Install dependencies using Poetry
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         poetry run pip install setuptools wheel cython
+        poetry run pip uninstall -y numpy
         poetry install
 
     - name: Ensure dist directory exists for macOS
