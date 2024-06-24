@@ -67,7 +67,6 @@ jobs:
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         poetry run pip install setuptools wheel cython
-        poetry run pip uninstall -y numpy
         poetry install
 
     - name: Ensure dist directory exists for macOS
