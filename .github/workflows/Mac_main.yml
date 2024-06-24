@@ -63,7 +63,29 @@ jobs:
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.local/bin:$PATH"
 
-    - name: Install dependencies using Poetry
+    - name: Install dependencies using Poetry for macos-latest, 3.9, x64
+      if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'x64'
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry run pip install setuptools wheel cython
+        poetry install
+
+    - name: Install dependencies using Poetry for macos-latest, 3.9, arm64
+      if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'arm64'
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry run pip install setuptools wheel cython
+        poetry install
+
+    - name: Install dependencies using Poetry for macos-latest, 3.10, x64
+      if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'x64'
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry run pip install setuptools wheel cython
+        poetry install
+
+    - name: Install dependencies using Poetry for macos-latest, 3.10, arm64
+      if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'arm64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         poetry run pip install setuptools wheel cython
@@ -133,5 +155,3 @@ jobs:
           dist/*
           build/*.run
           build/*.pkg
-
-
