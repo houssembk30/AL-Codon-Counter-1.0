@@ -83,6 +83,7 @@ jobs:
         export LDFLAGS="-L/usr/local/lib"
         poetry run pip install --upgrade pip
         poetry run pip install setuptools wheel cython
+        poetry run pip wheel --no-cache-dir --use-pep517 pyqt5-sip==12.9.1
         poetry run pip wheel --no-cache-dir --use-deprecated=legacy-resolver pandas
         poetry install
 
@@ -106,6 +107,7 @@ jobs:
         export LDFLAGS="-L/usr/local/lib"
         poetry run pip install --upgrade pip
         poetry run pip install setuptools wheel cython
+        poetry run pip wheel --no-cache-dir --use-pep517 pyqt5-sip==12.9.1
         poetry run pip wheel --no-cache-dir --use-deprecated=legacy-resolver pandas
         poetry install
 
