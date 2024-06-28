@@ -66,13 +66,16 @@ jobs:
     - name: Install dependencies using Poetry for macos-latest, 3.9, x64
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'x64'
       run: |
-        export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fno-common"
-        export CPPFLAGS="-I/usr/local/include"
-        export LDFLAGS="-L/usr/local/lib"
-        poetry run pip install setuptools wheel cython
-        poetry run pip wheel --no-cache-dir --use-pep517 "pandas==1.3.3"
-        poetry install
+         export PATH="$HOME/.local/bin:$PATH"
+         export CFLAGS="-fcommon"
+         export CPPFLAGS="-I/usr/local/include"
+         export LDFLAGS="-L/usr/local/lib"
+         poetry run pip install --upgrade pip
+         poetry run pip install setuptools wheel cython
+         poetry run pip wheel --no-cache-dir --use-pep517 pyqt5-sip==12.9.1
+         poetry run pip wheel --no-cache-dir --use-pep517 pandas==1.3.3
+         poetry install
+
 
     - name: Install dependencies using Poetry for macos-latest, 3.9, arm64
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'arm64'
@@ -84,19 +87,22 @@ jobs:
         poetry run pip install --upgrade pip
         poetry run pip install setuptools wheel cython
         poetry run pip wheel --no-cache-dir --use-pep517 pyqt5-sip==12.9.1
-        poetry run pip wheel --no-cache-dir --use-deprecated=legacy-resolver pandas
+        poetry run pip wheel --no-cache-dir --use-pep517 pandas==1.3.3
         poetry install
 
     - name: Install dependencies using Poetry for macos-latest, 3.10, x64
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'x64'
       run: |
-        export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fno-common"
-        export CPPFLAGS="-I/usr/local/include"
-        export LDFLAGS="-L/usr/local/lib"
-        poetry run pip install setuptools wheel cython
-        poetry run pip wheel --no-cache-dir --use-pep517 "pandas==1.3.3"
-        poetry install
+         export PATH="$HOME/.local/bin:$PATH"
+         export CFLAGS="-fcommon"
+         export CPPFLAGS="-I/usr/local/include"
+         export LDFLAGS="-L/usr/local/lib"
+         poetry run pip install --upgrade pip
+         poetry run pip install setuptools wheel cython
+         poetry run pip wheel --no-cache-dir --use-pep517 pyqt5-sip==12.9.1
+         poetry run pip wheel --no-cache-dir --use-pep517 pandas==1.3.3
+         poetry install
+
 
     - name: Install dependencies using Poetry for macos-latest, 3.10, arm64
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'arm64'
@@ -108,7 +114,7 @@ jobs:
         poetry run pip install --upgrade pip
         poetry run pip install setuptools wheel cython
         poetry run pip wheel --no-cache-dir --use-pep517 pyqt5-sip==12.9.1
-        poetry run pip wheel --no-cache-dir --use-deprecated=legacy-resolver pandas
+        poetry run pip wheel --no-cache-dir --use-pep517 pandas==1.3.3
         poetry install
 
     - name: Ensure dist directory exists for macOS
