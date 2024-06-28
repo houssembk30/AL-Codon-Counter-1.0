@@ -67,7 +67,7 @@ jobs:
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'x64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fcommon"
+        export CFLAGS="-fno-common"
         poetry run pip install setuptools wheel cython
         poetry run pip wheel --no-cache-dir --use-pep517 "pandas==1.3.3"
         poetry install
@@ -76,7 +76,7 @@ jobs:
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'arm64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fcommon"
+        export CFLAGS="-fno-common"
         poetry run pip install setuptools wheel cython
         poetry run pip wheel --no-cache-dir --use-pep517 "pandas==1.3.3"
         poetry install
@@ -85,7 +85,7 @@ jobs:
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'x64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fcommon"
+        export CFLAGS="-fno-common"
         poetry run pip install setuptools wheel cython
         poetry run pip wheel --no-cache-dir --use-pep517 "pandas==1.3.3"
         poetry install
@@ -94,7 +94,7 @@ jobs:
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'arm64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fcommon"
+        export CFLAGS="-fno-common"
         poetry run pip install setuptools wheel cython
         poetry run pip wheel --no-cache-dir --use-pep517 "pandas==1.3.3"
         poetry install
