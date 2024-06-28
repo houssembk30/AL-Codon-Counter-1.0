@@ -78,7 +78,7 @@ jobs:
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.9' && matrix.architecture == 'arm64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fno-common"
+        export CFLAGS="-fcommon"
         export CPPFLAGS="-I/usr/local/include"
         export LDFLAGS="-L/usr/local/lib"
         poetry run pip install setuptools wheel cython
@@ -100,7 +100,7 @@ jobs:
       if: matrix.os == 'macos-latest' && matrix.python-version == '3.10' && matrix.architecture == 'arm64'
       run: |
         export PATH="$HOME/.local/bin:$PATH"
-        export CFLAGS="-fno-common"
+        export CFLAGS="-fcommon"
         export CPPFLAGS="-I/usr/local/include"
         export LDFLAGS="-L/usr/local/lib"
         poetry run pip install setuptools wheel cython
