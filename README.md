@@ -35,3 +35,7 @@ Provide guidelines on how to contribute to your project.
 ## License
 
 This project is distributed under the MIT License. See the LICENSE file for more information.
+## Citation
+Si vous utilisez ce projet, veuillez citer :
+[DOI : 10.5281/zenodo.14217760](https://doi.org/10.5281/zenodo.14217760)
+
